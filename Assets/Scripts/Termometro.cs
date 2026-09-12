@@ -10,8 +10,8 @@ public class Termometro : MonoBehaviour
     public Image rellenoHumedad; // arrastra aquí el objeto "Relleno" de la gotica
 
     [Header("Rango de temperatura")]
-    public float tempMin = 0f;   // temperatura que corresponde a termómetro vacío
-    public float tempMax = 100f; // temperatura que corresponde a termómetro lleno
+    public float tempMin = 21f;   // temperatura que corresponde a termómetro vacío
+    public float tempMax = 30f; // temperatura que corresponde a termómetro lleno
 
     [Header("Rango de humedad")]
     public float humedadMin = 0f;   // humedad que corresponde a gotica vacía

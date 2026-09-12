@@ -19,11 +19,11 @@ public class FondoTemperatura : MonoBehaviour
     [Tooltip("Deben estar ordenados de menor a mayor temperatura")]
     public FondoPorTemperatura[] fondos = new FondoPorTemperatura[]
     {
-        new FondoPorTemperatura { nombre = "Nieve",    temperatura = 0f },
-        new FondoPorTemperatura { nombre = "Paramo",   temperatura = 25f },
-        new FondoPorTemperatura { nombre = "Bosque",   temperatura = 50f },
-        new FondoPorTemperatura { nombre = "Playa",    temperatura = 75f },
-        new FondoPorTemperatura { nombre = "Infierno", temperatura = 100f },
+        new FondoPorTemperatura { nombre = "Nieve",    temperatura = 19f },
+        new FondoPorTemperatura { nombre = "Paramo",   temperatura = 19f },
+        new FondoPorTemperatura { nombre = "Bosque",   temperatura = 20f },
+        new FondoPorTemperatura { nombre = "Playa",    temperatura = 25f },
+        new FondoPorTemperatura { nombre = "Infierno", temperatura = 30f },
     };
 
     // La temperatura ya no se actualiza aquí: GestorTemperatura llama

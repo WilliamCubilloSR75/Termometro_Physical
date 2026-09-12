@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 250}
+  m_AnchoredPosition: {x: 0.7346, y: -0.7346}
+  m_SizeDelta: {x: 1021.4838, y: 574.6996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &41493982
 CanvasRenderer:
@@ -230,7 +230,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 157.2, y: 7.8}
+  m_AnchoredPosition: {x: 449, y: 0.000012398}
   m_SizeDelta: {x: 2000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &126321733
@@ -409,8 +409,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Termometro
   relleno: {fileID: 126321733}
   rellenoHumedad: {fileID: 735193195}
-  tempMin: 0
-  tempMax: 100
+  tempMin: 20
+  tempMax: 27
   humedadMin: 0
   humedadMax: 100
 --- !u!4 &412275608
@@ -461,19 +461,19 @@ MonoBehaviour:
   fondoB: {fileID: 1118827060}
   fondos:
   - nombre: Nieve
-    temperatura: 0
+    temperatura: 20
     sprite: {fileID: 3652433000927008608, guid: a096dc2e0d89f694687563ad1fdc45e4, type: 3}
   - nombre: Paramo
-    temperatura: 25
-    sprite: {fileID: -1086543120424114950, guid: 5691bc7b5da22084ea5845978bf2496c, type: 3}
+    temperatura: 21
+    sprite: {fileID: 3652433000927008608, guid: a096dc2e0d89f694687563ad1fdc45e4, type: 3}
   - nombre: Bosque
-    temperatura: 50
+    temperatura: 23
     sprite: {fileID: -1086543120424114950, guid: 5691bc7b5da22084ea5845978bf2496c, type: 3}
   - nombre: Playa
-    temperatura: 75
+    temperatura: 25
     sprite: {fileID: -4975231705019818799, guid: b1e41d123fc22eb4da573be020533b47, type: 3}
   - nombre: Infierno
-    temperatura: 100
+    temperatura: 27
     sprite: {fileID: 6531101517094653737, guid: 0f1b0d685d83c514fa2b32c61c434df8, type: 3}
 --- !u!4 &445165928
 Transform:
@@ -826,7 +826,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -154.8, y: 8.1}
+  m_AnchoredPosition: {x: -457, y: 21}
   m_SizeDelta: {x: 2000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &735193195
@@ -1151,8 +1151,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 250}
+  m_AnchoredPosition: {x: 0.7346, y: -0.7346}
+  m_SizeDelta: {x: 1021.4838, y: 574.6996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1557619522
 GameObject:
@@ -1188,8 +1188,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 161.90002, y: -3.5976973}
-  m_SizeDelta: {x: 1672, y: 940}
+  m_AnchoredPosition: {x: 455, y: -1}
+  m_SizeDelta: {x: 4804.1313, y: 1596.4597}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1557619524
 MonoBehaviour:
@@ -1262,8 +1262,8 @@ MonoBehaviour:
   fondo: {fileID: 445165927}
   textoTemperatura: {fileID: 1893301957}
   textoHumedad: {fileID: 806144922}
-  temperaturaActual: 51.3
-  humedadActual: 50
+  nombrePuerto: COM8
+  baudRate: 9600
 --- !u!4 &1815786387
 Transform:
   m_ObjectHideFlags: 0
@@ -1315,8 +1315,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -160.40002, y: -3.6}
-  m_SizeDelta: {x: 1672, y: 940}
+  m_AnchoredPosition: {x: -482, y: -2}
+  m_SizeDelta: {x: 4804.131, y: 1596.46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1869011801
 MonoBehaviour:

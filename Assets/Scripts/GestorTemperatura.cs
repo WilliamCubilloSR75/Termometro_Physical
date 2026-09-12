@@ -1,5 +1,9 @@
 using UnityEngine;
 using TMPro;
+using System;
+using System.IO.Ports;
+using System.Threading;
+using System.Globalization;
 
 public class GestorTemperatura : MonoBehaviour
 {
@@ -11,19 +15,123 @@ public class GestorTemperatura : MonoBehaviour
     public TMP_Text textoTemperatura; // arrastra aquí el TextMeshPro que mostrará la temperatura
     public TMP_Text textoHumedad;     // arrastra aquí el TextMeshPro que mostrará la humedad
 
-    [Header("Datos de entrada (aquí conectarás el sensor real)")]
-    [Range(0f, 100f)]
-    public float temperaturaActual = 25f;
+    [Header("Configuración del puerto serial (Arduino)")]
+    public string nombrePuerto = "COM7"; // cámbialo por el puerto que use tu Arduino
+    public int baudRate = 9600;
 
-    [Range(0f, 100f)]
-    public float humedadActual = 50f;
+    private SerialPort puertoSerial;
+    private Thread hiloLectura;
+    private volatile bool leyendo = false;
+
+    // Últimos valores leídos del Arduino. Se escriben desde el hilo de
+    // lectura y se leen desde Update(), por eso usamos "lock" para
+    // evitar que ambos hilos los toquen al mismo tiempo.
+    private readonly object candado = new object();
+    private float ultimaTemperatura = 0f;
+    private float ultimaHumedad = 0f;
+    private bool hayDatoNuevo = false;
+
+    void Start()
+    {
+        ListarPuertosDisponibles();
+        AbrirPuerto();
+    }
+
+    void ListarPuertosDisponibles()
+    {
+        string[] puertos = SerialPort.GetPortNames();
+        Debug.Log("Puertos COM detectados en el sistema: " + string.Join(", ", puertos));
+    }
+
+    void AbrirPuerto()
+    {
+        try
+        {
+            puertoSerial = new SerialPort(nombrePuerto, baudRate);
+            puertoSerial.ReadTimeout = 2000;
+            puertoSerial.Open();
+
+            leyendo = true;
+            hiloLectura = new Thread(LeerDatosSerial);
+            hiloLectura.IsBackground = true;
+            hiloLectura.Start();
+
+            Debug.Log("Puerto serial abierto correctamente: " + nombrePuerto);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("No se pudo abrir el puerto serial (" + nombrePuerto + "): " + e.Message);
+        }
+    }
+
+    // Corre en un hilo aparte para no congelar Unity mientras espera datos.
+    void LeerDatosSerial()
+    {
+        while (leyendo && puertoSerial != null && puertoSerial.IsOpen)
+        {
+            try
+            {
+                string linea = puertoSerial.ReadLine();
+                ProcesarLinea(linea);
+            }
+            catch (TimeoutException)
+            {
+                // No llegó ningún dato a tiempo, se vuelve a intentar en la siguiente vuelta.
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("Error leyendo el puerto serial: " + e.Message);
+            }
+        }
+    }
+
+    // Formato esperado desde el Arduino: DATA:T:25.30,H:60.20
+    void ProcesarLinea(string linea)
+    {
+        if (string.IsNullOrEmpty(linea)) return;
+        linea = linea.Trim();
+
+        if (!linea.StartsWith("DATA:")) return; // ignora cualquier otra línea (mensajes, separadores, etc.)
+
+        string contenido = linea.Substring("DATA:".Length); // T:25.30,H:60.20
+        string[] partes = contenido.Split(',');
+        if (partes.Length < 2) return;
+
+        string parteTemp = partes[0].Replace("T:", "").Trim();
+        string parteHum = partes[1].Replace("H:", "").Trim();
+
+        float temp, hum;
+        bool okTemp = float.TryParse(parteTemp, NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
+        bool okHum = float.TryParse(parteHum, NumberStyles.Float, CultureInfo.InvariantCulture, out hum);
+
+        if (okTemp && okHum)
+        {
+            lock (candado)
+            {
+                ultimaTemperatura = temp;
+                ultimaHumedad = hum;
+                hayDatoNuevo = true;
+            }
+        }
+    }
 
     void Update()
     {
-        // Por ahora leemos los sliders de prueba. Cuando conectes los datos
-        // reales (Arduino, archivo, etc.), reemplaza estas variables
-        // por donde llegan esos datos.
-        ActualizarTodo(temperaturaActual, humedadActual);
+        bool hayNuevo;
+        float temp, hum;
+
+        lock (candado)
+        {
+            hayNuevo = hayDatoNuevo;
+            temp = ultimaTemperatura;
+            hum = ultimaHumedad;
+            hayDatoNuevo = false;
+        }
+
+        if (hayNuevo)
+        {
+            ActualizarTodo(temp, hum);
+        }
     }
 
     public void ActualizarTodo(float temperatura, float humedad)
@@ -42,5 +150,26 @@ public class GestorTemperatura : MonoBehaviour
 
         if (textoHumedad != null)
             textoHumedad.text = $"{humedad:0.0} %";
+    }
+
+    void OnApplicationQuit()
+    {
+        CerrarPuerto();
+    }
+
+    void OnDestroy()
+    {
+        CerrarPuerto();
+    }
+
+    void CerrarPuerto()
+    {
+        leyendo = false;
+
+        if (hiloLectura != null && hiloLectura.IsAlive)
+            hiloLectura.Join(500);
+
+        if (puertoSerial != null && puertoSerial.IsOpen)
+            puertoSerial.Close();
     }
 }

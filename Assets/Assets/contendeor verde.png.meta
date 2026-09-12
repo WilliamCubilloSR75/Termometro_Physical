@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: bf38383e746f87e44be73fe547a25ae0
+guid: 1b598bea5ee320042bcc3894f5b63d04
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8182195805132527035
-    second: GOTA_0
-  - first:
-      213: 4081006232394613138
-    second: GOTA_1
-  - first:
-      213: -5371547140069262361
-    second: GOTA_2
-  - first:
-      213: 9015929821087991940
-    second: GOTA_3
+      213: 6371390323275080512
+    second: contendeor verde_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GOTA_0
+      name: contendeor verde_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1673
-        height: 940
+        x: 125
+        y: 246
+        width: 1423
+        height: 450
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bb59d9fcbbffc8170800000000000000
-      internalID: 8182195805132527035
+      spriteID: 0432c20fdb9bb6850800000000000000
+      internalID: 6371390323275080512
       vertices: []
       indices: 
       edges: []
@@ -147,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 243bbaf8622edea4cb562be284fa2532
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -155,11 +146,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1673.0,"y":940.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      GOTA_0: 8182195805132527035
+      contendeor verde_0: 6371390323275080512
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

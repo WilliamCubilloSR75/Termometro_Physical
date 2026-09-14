@@ -14,6 +14,7 @@ public class GestorTemperatura : MonoBehaviour
     [Header("Referencias de texto (TextMeshPro)")]
     public TMP_Text textoTemperatura; // arrastra aquí el TextMeshPro que mostrará la temperatura
     public TMP_Text textoHumedad;     // arrastra aquí el TextMeshPro que mostrará la humedad
+    public TMP_Text textoEstadoPuerto; // opcional: mostrará "Conectando...", "Conectado", etc.
 
     [Header("Configuración del puerto serial (Arduino)")]
     public string nombrePuerto = "COM7"; // cámbialo por el puerto que use tu Arduino
@@ -33,6 +34,19 @@ public class GestorTemperatura : MonoBehaviour
 
     void Start()
     {
+        ActualizarEstadoTexto("Conectando...");
+        ListarPuertosDisponibles();
+        AbrirPuerto();
+    }
+
+    /// <summary>
+    /// Función pública asignable a un Botón UI para recargar/reintentar la conexión.
+    /// </summary>
+    public void ReconectarPuerto()
+    {
+        Debug.Log("[GestorTemperatura] Reintentando conexión al puerto serial...");
+        ActualizarEstadoTexto("Conectando...");
+        CerrarPuerto();
         ListarPuertosDisponibles();
         AbrirPuerto();
     }
@@ -57,10 +71,12 @@ public class GestorTemperatura : MonoBehaviour
             hiloLectura.Start();
 
             Debug.Log("Puerto serial abierto correctamente: " + nombrePuerto);
+            ActualizarEstadoTexto($"Conectado ({nombrePuerto})");
         }
         catch (Exception e)
         {
             Debug.LogError("No se pudo abrir el puerto serial (" + nombrePuerto + "): " + e.Message);
+            ActualizarEstadoTexto($"Error al conectar ({nombrePuerto})");
         }
     }
 
@@ -150,6 +166,12 @@ public class GestorTemperatura : MonoBehaviour
 
         if (textoHumedad != null)
             textoHumedad.text = $"{humedad:0.0} %";
+    }
+
+    void ActualizarEstadoTexto(string mensaje)
+    {
+        if (textoEstadoPuerto != null)
+            textoEstadoPuerto.text = mensaje;
     }
 
     void OnApplicationQuit()
